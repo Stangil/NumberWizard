@@ -2,39 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class NumberWizard : MonoBehaviour
 {
     [SerializeField] int max;
     [SerializeField] int min;
     [SerializeField] int guess;
-    [SerializeField] TextMeshProUGUI guessText;
+    [SerializeField] Text guessText;
 
-    // Use this for initialization
+    
     void Start()
     {
-        guessText = GetComponent<TextMeshProUGUI>() ?? gameObject.AddComponent<TextMeshProUGUI>();
+        Guess();
+    }
+
+    private void Guess()
+    {
+        //TODO Need to add functionality if min = max
+        guess = Random.Range(min , max+1);
         guessText.text = guess.ToString();
     }
 
     public void ToLow()
     {
-        Debug.Log("ToLow");
-        min = guess;
-        NextGuess();
+        min = guess +1;
+        Guess();
     }
 
     public void ToHigh()
     {
-        Debug.Log("ToHigh");
-        max = guess;
-        NextGuess();
+        max = guess -1;
+        Guess();
     }
-     
-    void NextGuess()
-    {
-        guess = (max + min) / 2;
-        Debug.Log(guess);
-        guessText.text = guess.ToString();
-    }
+
 }
